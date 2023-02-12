@@ -1,0 +1,93 @@
+# Исключаем настройки PHPStorm, мы в нём работаем
+/.idea/
+
+# Исключаем папку /bitrix кроме некоторых подпапок
+!/bitrix
+/bitrix/*
+
+# оставляем печатные формы интернет-магазина
+!/bitrix/admin/
+/bitrix/admin/*
+!/bitrix/admin/reports/
+
+# оставляем нестандартные компоненты
+!/bitrix/components/
+/bitrix/components/bitrix/
+
+# сохраняем весь php_interface за редкими исключениями
+!/bitrix/php_interface/
+/bitrix/php_interface/dbconn.ph*
+/bitrix/php_interface/after_connect*
+/bitrix/php_interface/logs/
+
+# сохраняем шаблоны сайта
+!/bitrix/templates/
+
+# исключаем логи
+/local/php_interface/logs/
+/local/logs/
+
+# исключаем загружаемые файлы
+/upload/
+
+# различные системные папки и файлы хостингов и операционных систем
+/cgi-bin/
+/awstats/
+/webstat/
+.DS_Store
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+
+# исключаем все текстовые и подобные ресурсы (на нашей практике они всегда излишни)
+*.xml
+*.html
+*.txt
+*.log
+*.css.map
+
+# архивы, включая многотомные
+*.zip
+*.zip*
+*.tar
+*.tar*
+*.enc
+*.enc*
+*.gz
+*.gz*
+*.tgz
+*.tgz*
+*.sql
+*.rar
+.hg
+.ftpconfig
+*.doc
+*.docx
+*.pdf
+*.rtf
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+*.psd
+*.psb
+*.sketch
+core.*
+
+# однако храним robots.txt — он нужен
+!/robots.txt
+
+# composer
+composer.phar
+/vendor/
+
+# исключаем всякое от node.js
+node_modules
+bower_components
+.grunt
+.npm
+.env
+
+# и логи xhprof напоследок
+/xhprof/logs
