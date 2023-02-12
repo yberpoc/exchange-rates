@@ -4,10 +4,10 @@ ErrorDocument 404 /404.php
 <IfModule mod_php5.c>
   php_flag allow_call_time_pass_reference 1
   php_flag session.use_trans_sid off
+</IfModule>
 
-  #php_value display_errors 1
-
-  #php_value mbstring.internal_encoding UTF-8
+<IfModule mod_php7.c>
+  php_flag session.use_trans_sid off
 </IfModule>
 
 <IfModule mod_rewrite.c>
@@ -42,4 +42,7 @@ RewriteRule ^(.*)$ /bitrix/virtual_file_system.php [L]
   ExpiresActive on
   ExpiresByType image/jpeg "access plus 3 day"
   ExpiresByType image/gif "access plus 3 day"
+  ExpiresByType image/png "access plus 3 day"
+  ExpiresByType text/css "access plus 3 day"
+  ExpiresByType application/javascript "access plus 3 day"
 </IfModule>
