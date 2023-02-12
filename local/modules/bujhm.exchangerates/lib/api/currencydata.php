@@ -4,9 +4,11 @@ namespace Bujhm\ExchangeRates\Api;
 
 class CurrencyData
 {
+    protected $path = __DIR__.'.data.xml';
+
     public static function requestCurrencyData()
     {
-
+        $path = '/local/modules/lib/api/data.xml';
         $date = date('d/m/Y'); // Текущая дата
         /*$cache_time_out = 14400; // Время жизни кэша в секундах
 
@@ -21,18 +23,19 @@ class CurrencyData
         curl_setopt($ch, CURLOPT_HEADER, 0);
 
         $res = curl_exec($ch);
+        curl_close($ch);
 
-        $arResult = self::xml2array($res->xpath('Valute'));
+        file_put_contents($path, $res);
+
+        //$arResult = self::xml2array($res);
+
+        //file_put_contents(__DIR__.'/log.txt', "\r\n \r\n".date("H:i:s")."\r\n".print_r($arResult, true). "\r\n \r\n-------------------------", FILE_APPEND | LOCK_EX);
+        
+        $content_data = simplexml_load_file($path);
+        $arResult = self::xml2array($content_data->xpath('Valute'));
 
         file_put_contents(__DIR__.'/log.txt', "\r\n \r\n".date("H:i:s")."\r\n".print_r($arResult, true). "\r\n \r\n-------------------------", FILE_APPEND | LOCK_EX);
 
-        curl_close($ch);
-
-        ////file_put_contents($file_currency_cache, $out);
-//      //  }
-//
-        //$content_currency = simplexml_load_file($file_currency_cache);
-//
         //return $content_currency->xpath('Valute');
     }
 
