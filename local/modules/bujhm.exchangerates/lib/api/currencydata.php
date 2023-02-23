@@ -4,17 +4,10 @@ namespace Bujhm\ExchangeRates\Api;
 
 class CurrencyData
 {
-    protected $path = __DIR__.'.data.xml';
-
     public static function requestCurrencyData()
     {
-        $path = '/local/modules/lib/api/data.xml';
+        $path = __DIR__.'\data.xml';
         $date = date('d/m/Y'); // Текущая дата
-        /*$cache_time_out = 14400; // Время жизни кэша в секундах
-
-        $file_currency_cache = './currency.xml'; // Файл кэша*/
-
-//        if(!is_file($file_currency_cache) || filemtime($file_currency_cache) < (time() - $cache_time_out)) {
 
         $ch = curl_init();
 
@@ -27,23 +20,16 @@ class CurrencyData
 
         file_put_contents($path, $res);
 
-        //$arResult = self::xml2array($res);
-
-        //file_put_contents(__DIR__.'/log.txt', "\r\n \r\n".date("H:i:s")."\r\n".print_r($arResult, true). "\r\n \r\n-------------------------", FILE_APPEND | LOCK_EX);
-        
         $content_data = simplexml_load_file($path);
-        $arResult = self::xml2array($content_data->xpath('Valute'));
-
-        file_put_contents(__DIR__.'/log.txt', "\r\n \r\n".date("H:i:s")."\r\n".print_r($arResult, true). "\r\n \r\n-------------------------", FILE_APPEND | LOCK_EX);
-
-        //return $content_currency->xpath('Valute');
+        self::xml2array($content_data->xpath('Valute'));
     }
 
-    private static function xml2array($xmlObject, $out = array ())
+    private static function xml2array($xmlObject)
     {
+        $out = [];
         foreach ( (array) $xmlObject as $index => $node )
-            $out[$index] = ( is_object ( $node ) ) ? xml2array ( $node ) : $node;
+            $out[$index] = ( is_object ( $node ) ) ? self::xml2array($node) : $node;
 
-        return $out;
+        file_put_contents(__DIR__.'/log.txt', "\r\n \r\n".date("H:i:s")."\r\n".print_r($out, true). "\r\n \r\n-------------------------", FILE_APPEND | LOCK_EX);
     }
 }
