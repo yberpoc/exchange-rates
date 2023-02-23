@@ -4,7 +4,7 @@ namespace Bujhm\ExchangeRates;
 
 use Bitrix\Main\Entity;
 
-class Currency extends Entity\DataManager
+class CurrencyTable extends Entity\DataManager
 {
     public static function getTableName()
     {
